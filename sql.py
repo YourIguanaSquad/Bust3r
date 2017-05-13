@@ -4,6 +4,13 @@ from sgmllib import SGMLParser
 import os, sys, urllib, httplib, re, urllib2, sets, socket, subprocess, ConfigParser
 from termcolor import colored
 os.system("pip install colored")
+print ""
+if raw_input ("Open Your WebBrowser? [y/n]: ").lower()[0]=='y': # List of Browsers
+	os.system('firefox')
+	os.system('Chrome')
+	os.system('iceweasel')
+else:
+	pass
 
 if not os.geteuid() == 0:
 	sys.exit('Script must be run as root')
@@ -21,9 +28,6 @@ COLOR_CYAN      = 6
 COLOR_WHITE     = 7
 COLOR_RESET     = 9
 
-#os.system("firefox")
-#os.system("iceweasle")			#Comment out what you don't have
-#os.system("chrome")
 print colored("""
  ▄▄▄▄    █    ██   ██████ ▄▄▄█████▓▓█████  ██▀███     
 ▓█████▄  ██  ▓██▒▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██ ▒ ██▒   
@@ -39,7 +43,7 @@ print colored("""
                          
 print """
 ~~=[ Bust3r - XSS, SQL, LFI, RFI Injector 
-~~=[ v1.4 - 'DarkMass'"""
+~~=[ v1.5 - 'RedFox'"""
 print colored("~~=[ coders: @_r0ot_, @DrDeadPatch",'cyan')
 print colored("~~=[ https://github.com/r0otshell, https://github.com/LucidScorpion",'yellow')
 socket.setdefaulttimeout(5)
@@ -169,7 +173,7 @@ if len(sys.argv) not in [2,3]:
    print ""
    print colored("Usage : ./bust3r.py <site> [option]",'red')
    print "\t[Option]"
-   print "\t-verbose/-v | Verbose Output\n"
+   print "\t [-v] | Verbose Output\n"
    print "Example:" 
    print colored("\t./bust3r.py [url] -verbose", 'white')
    print ""
